@@ -16,7 +16,7 @@ services:
       - ./filebrowser/database:/database
       - ./filebrowser/config:/config
     ports:
-      - 8080:80
+      - 8080:38080
     # networks:
     #   - filebrowser
     restart: unless-stopped
