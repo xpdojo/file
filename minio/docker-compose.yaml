@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  minio:
+    # image: quay.io/minio/minio
+    image: quay.io/minio/minio:RELEASE.2023-01-31T02-24-19Z
+    command: server /data --console-address ":9090"
+    container_name: minio
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=miniopass
+    ports:
+      - 9000:9000
+      - 9090:9090
+    volumes:
+      - /home/markruler/minio/data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
