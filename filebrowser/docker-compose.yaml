@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  filebrowser:
+    # image: filebrowser/filebrowser:s6
+    image: filebrowser/filebrowser:v2.23.0-s6
+    container_name: filebrowser
+    hostname: filebrowser
+    environment:
+      - PUID=1000 # id -u
+      - PGID=1000 # id -g
+      - TZ=Asia/Seoul
+    volumes:
+      # srv: the folder you want to share
+      # - /home/markruler:/srv
+      - ./filebrowser/srv:/srv
+      - ./filebrowser/database:/database
+      - ./filebrowser/config:/config
+    ports:
+      - 8080:80
+    # networks:
+    #   - filebrowser
+    restart: unless-stopped
